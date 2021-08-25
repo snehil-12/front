@@ -1,6 +1,6 @@
 import axios from "axios";
 import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED} from "./Types";
-import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE} from "./Types";
+import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "./Types";
 import "bootstrap/dist/css/bootstrap-grid.min.css";
 // import Alert from 'react-bootstrap/Alert'
 
@@ -45,7 +45,8 @@ export const removeUsers = (id) => (dispatch) => {
     .then((response) => {
       dispatch({
         type:DATA_DELETED,
-        payload:response.data.message
+        payload:response.data.message,
+        notification:true
       })    
     })
     .catch((error) => {
@@ -64,7 +65,8 @@ export const editUser = (user) => (dispatch) => {
       .then((response) => {
         dispatch({
           type:EDIT_CONDUCTED,
-          payload:response.data.message
+          payload:response.data.message,
+          notification:true
         })  
       })
       .catch((error) => {
@@ -75,10 +77,9 @@ export const editUser = (user) => (dispatch) => {
 export const addUser = (user) => (dispatch) => {
     axios.post(`http://localhost:8080/apppost`,user)
       .then((response) => {
-        console.log("78",response)
         dispatch({
           type:USER_ADDED,
-          payload:response.message
+          payload:response.data.message
         }) 
       })
       .catch((error) => {
@@ -117,7 +118,7 @@ export const noOfEmp =()=>(dispatch)=>{
     axios.post(`http://localhost:8080/contactpost`,user)
     .then((response) => {
       dispatch({
-        type:SET_ALERT_MESSAGE,
+        type:SET_ADDTOCONTACT_NOTIFICATION,
         payload:response.data.message
       }) 
     })
@@ -126,11 +127,12 @@ export const noOfEmp =()=>(dispatch)=>{
     });
   }
 
-// export const setAlertVisibility =()=>(dispatch)=>{
-//     dispatch({
-//        type:SET_ALERT_VISIBILITY
-//     })
-//   }
+
+export const resetNotification=()=>(dispatch)=>{
+    dispatch({
+       type:RESET_NOTIFICATION
+    })
+  }
 
   // export const resetAlertVisibility =()=>(dispatch)=>{
   //   dispatch({

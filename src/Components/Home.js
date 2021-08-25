@@ -6,10 +6,13 @@ import { connect } from "react-redux";
 import { fetchUsers } from "../redux/AsyncAction";
 import { removeUsers } from "../redux/AsyncAction";
 import { resetDelete } from "../redux/AsyncAction";
+import { resetNotification } from "../redux/AsyncAction";
 import { dataAddedToContact  } from "../redux/AsyncAction";
 import validator from "validator";
 import Alert from 'react-bootstrap/Alert'
 
+import '../CssFile/Color.css'
+import { left } from "@popperjs/core";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +26,6 @@ class Home extends Component {
       email: "",
       emailError:"",
       mobNoError:"",
-      
     };
   }
   
@@ -36,13 +38,11 @@ class Home extends Component {
     
   }
   componentDidUpdate(prevProps, prevState) {
-    // console.log("53",this.props.data !== prevProps.data,"current",this.props.data,"previous",prevProps.data);
-    if (this.props.dataDeleted === true) {
+    if(this.props.dataDeleted === true){
       this.props.fetchUsers();
-    }
-    if (this.props.dataDeleted === true ) {
       this.props.resetDelete();
     }
+    
   }
 
   //starting of modal implementation
@@ -71,7 +71,7 @@ class Home extends Component {
     this.setState({
       mobNo: e.target.value,
     });
-    if(tempMobNo.toString().length==10){
+    if(tempMobNo.toString().length===10){
       this.setState({
       mobNoError:""
     })
@@ -119,7 +119,7 @@ class Home extends Component {
     let temp2=user.email
     // console.log("151 ",temp1.toString.length==='10')
     // console.log("152 ",validator.isEmail(temp2))
-    if(temp1.toString().length=='10'&&validator.isEmail(temp2))
+    if(temp1.toString().length===10&&validator.isEmail(temp2))
         this.props.dataAddedToContact(user);
     else
         alert("pl check phone no and mail id again")
@@ -136,35 +136,32 @@ class Home extends Component {
     });
   };
 
-  //    checkAll = ()=>{
-  //        if(this.state.firstName.length>0&&this.state.lastName.length>0&&this.state.mobNo.length===10&&this.state.email.length>0&&this.state.feedBack.length>0)
-  //           return false;
-  //        else
-  //           return true;
-  //     }
-  modalclose =()=>{
-    this.setState({
-      showAlert:false
-    })
+  
+  alertclose =()=>{
+   this.props.resetNotification()
   }
   render() {
   
     return (
       <div>
         {
-          this.state.dataDeleted===true?
-          <Alert variant="primary" onClose={false} dismissible>
-          <Alert.Heading>{this.props.alertMessage}</Alert.Heading>
+          
+          this.props.notification===true?
+          <Alert variant="danger" >
+            <Alert.Heading>{this.props.alertMessage}
+            <button type="button" onClick={()=>this.alertclose()} className="btn-close" style={{float: 'right'}}></button>
+            </Alert.Heading>
           </Alert>
           :null
+          
         }
         <table className="table border shadow">
           <thead>
             <tr>
               <th scope="col">S.NO.</th>
-              <th scope="col">Id</th>
-              <th scope="col">Title</th>
-              <th scope="col">Body</th>
+              <th scope="col">ID</th>
+              <th scope="col">TITLE</th>
+              <th scope="col">BODY</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -197,8 +194,8 @@ class Home extends Component {
                     </Link>
                     <button
                       className="btn btn-danger me-2"
-                      onClick={() => this.deleteUser(user.id)}
-                    >
+                      onClick={() => {this.deleteUser(user.id)}}
+                    >                                                  
                       Delete
                     </button>
                   </td>
@@ -209,59 +206,63 @@ class Home extends Component {
         </table>
 
         {/* modal box */}
-
-        <button variant="primary" onClick={this.showModal}>
-          click here
+       <div >
+        <button variant="primary" onClick={this.showModal} className="modalClickButton">
+          CLICK HERE
         </button>
-        <Modal show={this.state.show} onHide={this.hideModal}>
-          <Modal.Dialog>
-            <Modal.Header closeButton>
+        <Modal show={this.state.show} onHide={this.hideModal} >
+        
+        <Modal.Dialog className="modalHomeDialog">
+            <Modal.Header className="modalHomeHeader">
               <Modal.Title>Fill Up The Form</Modal.Title>
-              {/* <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => this.hideModal()}
-              ></button> */}
+              <button type="button" onClick={this.hideModal} className="btn-close" ></button>
             </Modal.Header>
 
-            <Modal.Body>
+            <Modal.Body className="modalHomeBody">
+            
               <form onSubmit={this.handleSubmitModal}>
+              {/* <div className="homeDiv"> */}
                 <div className="mb-3">
-                  <label htmlFor="id" className="form-label">
+                  <label htmlFor="id" className="form-labelHome" >
                     First Name
                   </label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-controlHome"
                     name="firstName"
                     value={this.state.firstName}
                     onChange={this.handleFirstName}
                   />
                 </div>
+
+
                 <div className="mb-3">
-                  <label htmlFor="title" className="form-label">
+                  <label htmlFor="title" className="form-labelHome">
                     Last Name
                   </label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-controlHome"
                     name="lastName"
                     value={this.state.lastName}
                     onChange={this.handleLastName}
                   />
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="body" className="form-label">
+
+                  {/* starting */}
+                  <div className="mb-3">
+                  <label htmlFor="body" className="form-labelHome">
                     Mobile No
                   </label>
                   <input
                     type="number"
-                    className="form-control"
+                    className="form-controlHome"
                     name="mobNo"
                     value={this.state.mobNo}
                     onChange={this.handleMobileNo}
                   />
                 </div>
+                {this.state.mobNo.length>0?
                 <span
                   style={{
                     fontWeight: "bold",
@@ -269,19 +270,22 @@ class Home extends Component {
                   }}
                 >
                   {this.state.mobNoError}
-                </span>
+                </span>:null
+                }
+                  {/* ending */}
                 <div className="mb-3">
-                  <label htmlFor="body" className="form-label">
-                    Email Id
+                  <label htmlFor="body" className="form-labelHome">
+                    Email Id 
                   </label>
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-controlHomeE"
                     name="email"
                     value={this.state.email}
                     onChange={this.handleEmail}
                   />
                 </div>
+                {this.state.emailError.length>0?
                 <span
                   style={{
                     fontWeight: "bold",
@@ -290,30 +294,34 @@ class Home extends Component {
                 >
                   {this.state.emailError}
                 </span>
+                :null}
+
                 <div className="mb-3">
-                  <label htmlFor="body" className="form-label">
+                  <label htmlFor="body" className="form-labelHome">
                     feedBack
                   </label>
                   <input
                     type="textarea"
-                    className="form-control"
+                    className="form-controlHomeF"
                     name="feedBack"
                     value={this.state.feedBack}
                     onChange={this.handleFeedback}
                   />
                 </div>
+                {/* </div> */}
               </form>
+             
             </Modal.Body>
 
-            <Modal.Footer>
+            <Modal.Footer className="modalHomeFooter">
               <button
-                className="btn btn-primary me-2"
+                className="btn btn-primary em-2 "
                 onClick={this.handleReset}
               >
                 Clear
               </button>
               <button
-                className="btn btn-primary me-2"
+                className="btn btn-primary em-2 "
                 type="submit"
                 onClick={this.handleSubmitModal}
               >
@@ -321,7 +329,9 @@ class Home extends Component {
               </button>
             </Modal.Footer>
           </Modal.Dialog>
+          
         </Modal>
+        </div>
       </div>
     );
   }
@@ -330,14 +340,17 @@ class Home extends Component {
 const mapStateToProps = (state) => ({
   data: state.data,
   dataDeleted: state.dataDeleted,
-  alertMessage:state.alertMessage
+  alertMessage:state.alertMessage,
+  notification:state.notification,
+  addToContactNotification:state.addToContactNotification
 });
 
 const mapDispatchToProps = {
   fetchUsers,
   removeUsers,
   resetDelete,
-  dataAddedToContact 
+  dataAddedToContact ,
+  resetNotification,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

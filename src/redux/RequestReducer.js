@@ -1,13 +1,13 @@
 import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED} from "./Types";
-import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE} from "./Types";
+import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "./Types";
 
 const initialState = {
-  // loading: false,
   data: [],
   alertMessage: "",
   dataDeleted: false,
   noofemp: "",
-  showAlert:true
+  notification:false,
+  addToContactNotification:false,
 };
 
 const RequestReducer = (state = initialState, action) => {
@@ -17,6 +17,7 @@ const RequestReducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload,
+        
       };
     case FETCH_SINGLE_USER_DETAILS:
       return {
@@ -28,22 +29,26 @@ const RequestReducer = (state = initialState, action) => {
         ...state,
         dataDeleted:true,
         alertMessage:action.payload,
+        notification:action.notification
       };
     case CHANGE_CONDUCTED_IN_DELETE:
       return {
         ...state,
         dataDeleted: false,
-        alertMessage: "",
+        // alertMessage: "",
+     
       };
     case EDIT_CONDUCTED:
       return {
         ...state,
         alertMessage: action.payload,
+        notification:action.notification
       };
     case USER_ADDED:
       return {
         ...state,
         alertMessage: action.payload,
+        notification:true
       };
     case NO_OF_EMP:
       return {
@@ -58,13 +63,27 @@ const RequestReducer = (state = initialState, action) => {
     case SET_ALERT_MESSAGE:
       return{
         ...state,
-        alertMessage:action.payload
+        alertMessage:action.payload,
+        notification:true,
       }
     case RESET_ALERT_MESSAGE:
       return {
         ...state,
         alertMessage:"",
       };
+    case RESET_NOTIFICATION:
+      return{
+        ...state,
+        notification:false,
+        addToContactNotification:false,
+        alertMessage:""
+      }
+    case SET_ADDTOCONTACT_NOTIFICATION:
+      return{
+            ...state,
+            addToContactNotification:true,
+            alertMessage:action.payload
+      }
 
     default:
       return state;
