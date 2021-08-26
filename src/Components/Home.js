@@ -8,8 +8,10 @@ import { removeUsers } from "../redux/AsyncAction";
 import { resetDelete } from "../redux/AsyncAction";
 import { resetNotification } from "../redux/AsyncAction";
 import { dataAddedToContact  } from "../redux/AsyncAction";
+import {resetAddToContactNotification} from "../redux/AsyncAction"
 import validator from "validator";
-import Alert from 'react-bootstrap/Alert'
+import Alert from 'react-bootstrap/Alert';
+import Toast from 'react-bootstrap/Toast'
 
 import '../CssFile/Color.css'
 import { left } from "@popperjs/core";
@@ -106,6 +108,7 @@ class Home extends Component {
   };
 
   handleSubmitModal = (e) => {
+    this.hideModal();
     e.preventDefault();
 
     const user = {
@@ -117,13 +120,12 @@ class Home extends Component {
     };
     let temp1=user.mobNo
     let temp2=user.email
-    // console.log("151 ",temp1.toString.length==='10')
-    // console.log("152 ",validator.isEmail(temp2))
     if(temp1.toString().length===10&&validator.isEmail(temp2))
         this.props.dataAddedToContact(user);
     else
         alert("pl check phone no and mail id again")
   };
+  
   handleReset = () => {
     this.setState({
       firstName: "",
@@ -140,21 +142,36 @@ class Home extends Component {
   alertclose =()=>{
    this.props.resetNotification()
   }
-  render() {
+  toastClose =()=>{
+    this.props.resetAddToContactNotification()
+  }
   
+  render() {
+     
+    console.log("143",this.props.addToContactNotification)
     return (
       <div>
         {
-          
           this.props.notification===true?
-          <Alert variant="danger" >
-            <Alert.Heading>{this.props.alertMessage}
+          <Alert variant="danger" className="Alerttt">
+            <Alert.Heading className="AlertttMessage">{this.props.alertMessage}
             <button type="button" onClick={()=>this.alertclose()} className="btn-close" style={{float: 'right'}}></button>
             </Alert.Heading>
           </Alert>
           :null
-          
         }
+
+        {
+        this.props.addToContactNotification===true?
+        <div className="HomeToast " variant="primary">
+          <Toast style={{color:'black'},{backgroundColor:'skyblue'}}>
+          <button type="button" onClick={()=>this.toastClose()} className="btn-close" style={{float: 'right'}}></button>
+          <Toast.Body>{this.props.alertMessage}</Toast.Body>
+          </Toast>
+        </div>
+        :null
+       }
+
         <table className="table border shadow">
           <thead>
             <tr>
@@ -207,12 +224,11 @@ class Home extends Component {
 
         {/* modal box */}
        <div >
-        <button variant="primary" onClick={this.showModal} className="modalClickButton">
-          CLICK HERE
-        </button>
+        <button className="btn btn-primary me-5" onClick={() => {this.showModal()}} style={{float: 'right'}}> CLICK HERE</button>
+        { (this.props.addToContactNotification===false&&this.state.show===true)?
         <Modal show={this.state.show} onHide={this.hideModal} >
         
-        <Modal.Dialog className="modalHomeDialog">
+        <Modal.Dialog className="modalHomeDialog"   >
             <Modal.Header className="modalHomeHeader">
               <Modal.Title>Fill Up The Form</Modal.Title>
               <button type="button" onClick={this.hideModal} className="btn-close" ></button>
@@ -249,7 +265,7 @@ class Home extends Component {
                   />
                 </div>
 
-                  {/* starting */}
+                 
                   <div className="mb-3">
                   <label htmlFor="body" className="form-labelHome">
                     Mobile No
@@ -264,15 +280,15 @@ class Home extends Component {
                 </div>
                 {this.state.mobNo.length>0?
                 <span
-                  style={{
-                    fontWeight: "bold",
-                    color: "red",
-                  }}
-                >
-                  {this.state.mobNoError}
-                </span>:null
-                }
-                  {/* ending */}
+                style={{
+                  fontWeight: "bold",
+                  color: "red",
+                }}
+              >
+                {this.state.mobNoError}
+              </span>
+              :null}
+             
                 <div className="mb-3">
                   <label htmlFor="body" className="form-labelHome">
                     Email Id 
@@ -331,6 +347,7 @@ class Home extends Component {
           </Modal.Dialog>
           
         </Modal>
+          :null      }
         </div>
       </div>
     );
@@ -351,6 +368,7 @@ const mapDispatchToProps = {
   resetDelete,
   dataAddedToContact ,
   resetNotification,
+  resetAddToContactNotification,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

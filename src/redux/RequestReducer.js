@@ -1,4 +1,4 @@
-import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED} from "./Types";
+import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "./Types";
 import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "./Types";
 
 const initialState = {
@@ -75,7 +75,6 @@ const RequestReducer = (state = initialState, action) => {
       return{
         ...state,
         notification:false,
-        addToContactNotification:false,
         alertMessage:""
       }
     case SET_ADDTOCONTACT_NOTIFICATION:
@@ -84,6 +83,12 @@ const RequestReducer = (state = initialState, action) => {
             addToContactNotification:true,
             alertMessage:action.payload
       }
+    case RESET_ADDTOCONTACT_NOTIFICATION:
+       return{
+         ...state,
+         addToContactNotification:false,
+         alertMessage:""
+       }
 
     default:
       return state;

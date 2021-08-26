@@ -1,9 +1,7 @@
 import axios from "axios";
-import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED} from "./Types";
+import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "./Types";
 import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "./Types";
 import "bootstrap/dist/css/bootstrap-grid.min.css";
-// import Alert from 'react-bootstrap/Alert'
-
 
 export const fetchUsersFailure = (error) => {
   return {
@@ -123,19 +121,22 @@ export const noOfEmp =()=>(dispatch)=>{
       }) 
     })
     .catch((error) => {
-      dispatch(fetchUsersFailure(error.message));
+      dispatch({
+        // fetchUsersFailure(error.message)
+        type:SET_ADDTOCONTACT_NOTIFICATION,
+        payload:error.message,
+      });
     });
   }
 
-
-export const resetNotification=()=>(dispatch)=>{
+  export const resetNotification=()=>(dispatch)=>{
     dispatch({
        type:RESET_NOTIFICATION
     })
   }
 
-  // export const resetAlertVisibility =()=>(dispatch)=>{
-  //   dispatch({
-  //      type:RESET_ALERT_VISIBILITY
-  //   })
-  // }
+export const resetAddToContactNotification=()=>(dispatch)=>{
+    dispatch({
+       type:RESET_ADDTOCONTACT_NOTIFICATION
+    })
+  }

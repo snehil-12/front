@@ -27,10 +27,26 @@
     font-weight: 900;   
 }
 
-.modalClickButton{
+/* .modalClickButton{
    float: right;
    margin-right: 3rem;
    color: tomato;
+} */
+
+.Alerttt{
+    height: 44px;
+}
+.AlertttMessage{
+    font-size: medium;
+}
+.React{
+    color: white;
+    font-weight:700;
+    font-style: normal;
+}
+.HomeToast{
+    margin-left: 40%;
+    width: 20%;
 }
 
 

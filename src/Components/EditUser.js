@@ -23,10 +23,7 @@ class EditUser extends Component {
   };
 
   componentDidMount() {
-    if (
-      this.props.location?.state?.mode === "edit" ||
-      this.props.location?.state?.mode === "view"
-    ) {
+    if (this.props.location?.state?.mode === "edit" ||this.props.location?.state?.mode === "view" ) {
       const { id } = this.props.match.params;
       this.props.singleUser(id);
     }
@@ -48,10 +45,7 @@ class EditUser extends Component {
       });
     }
 
-    if (
-      this.props.location?.state?.mode === "create" &&
-      this.props.data.length > 0
-    ) {
+    if (this.props.location?.state?.mode === "create" &&this.props.data.length > 0) {
       this.props.changeData();
       // this.props.noOfEmp()
       this.setState({
@@ -63,13 +57,9 @@ class EditUser extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log("static", nextProps.location.pathname);
+    // console.log("static", nextProps.location.pathname);
     const newState = { ...prevState };
-    if (
-      nextProps.noofemp !== prevState.id &&
-      nextProps.data !== [] &&
-      nextProps.location.pathname === "/addData"
-    ) {
+    if ( nextProps.noofemp !== prevState.id &&nextProps.data !== [] &&nextProps.location.pathname === "/addData") {
       newState.id = nextProps.noofemp;
     }
     return newState; // No change to state
@@ -100,8 +90,8 @@ class EditUser extends Component {
     return (
       <div>
         {this.props.notification === true ? (
-            <Alert variant="primary">
-            <Alert.Heading>{this.props.alertMessage}
+            <Alert variant="primary" className="Alerttt">
+            <Alert.Heading className="AlertttMessage">{this.props.alertMessage}
             <button type="button" onClick={() => this.modalclose()} className="btn-close" style={{float: 'right'}}></button>
             </Alert.Heading>
             </Alert>
