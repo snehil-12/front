@@ -1,6 +1,7 @@
 import axios from "axios";
-import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "./Types";
-import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "./Types";
+import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "../Types";
+import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "../Types";
+import {SET_DATATO_CARDS} from "../Types"
 import "bootstrap/dist/css/bootstrap-grid.min.css";
 
 export const fetchUsersFailure = (error) => {
@@ -127,6 +128,19 @@ export const noOfEmp =()=>(dispatch)=>{
         payload:error.message,
       });
     });
+  }
+  export const dataAddedToCards = () =>(dispatch)=>{
+    axios.get(`https://randomuser.me/api/?results=15`)
+    .then((response)=>{
+      console.log("135 ",response.data.results)
+      dispatch({
+        type:SET_DATATO_CARDS,
+        payload:response.data.results
+      })
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
   }
 
   export const resetNotification=()=>(dispatch)=>{

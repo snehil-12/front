@@ -148,7 +148,7 @@ class Home extends Component {
   
   render() {
      
-    console.log("143",this.props.addToContactNotification)
+    // console.log("143",this.props.addToContactNotification)
     return (
       <div>
         {
@@ -165,7 +165,7 @@ class Home extends Component {
         this.props.addToContactNotification===true?
         <div className="HomeToast " variant="primary">
           <Toast style={{color:'black'},{backgroundColor:'skyblue'}}>
-          <button type="button" onClick={()=>this.toastClose()} className="btn-close" style={{float: 'right'}}></button>
+          <button type="button" onClick={()=>this.toastClose()} className="btn-close me-2 " style={{float: 'right'}}></button>
           <Toast.Body>{this.props.alertMessage}</Toast.Body>
           </Toast>
         </div>
