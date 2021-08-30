@@ -82,4 +82,26 @@ span{
 .btn-close{
     font-size: small;
 }
+
+
+/* card */
+.cardImg{
+    /* borderRadius: 50%; */
+    width:60px;
+    height:60px;
+    margin-Top:5%;
+    margin-Left:10%
+}
+.card:hover{
+    padding: 2%;
+    margin: 2%;
+    box-Shadow:  0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);   
+}
+.credtextdiv{
+    font-family: 'Anton', sans-serif;
+}
+.card{
+    margin:3%;
+    font-family: 'Roboto', sans-serif;
+}
  

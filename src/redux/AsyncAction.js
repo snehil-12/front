@@ -130,7 +130,7 @@ export const noOfEmp =()=>(dispatch)=>{
     });
   }
   export const dataAddedToCards = () =>(dispatch)=>{
-    axios.get(`https://randomuser.me/api/?results=15`)
+    axios.get(`https://randomuser.me/api/?results=35`)
     .then((response)=>{
       console.log("135 ",response.data.results)
       dispatch({
