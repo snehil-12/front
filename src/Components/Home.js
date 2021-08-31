@@ -278,16 +278,7 @@ class Home extends Component {
                     onChange={this.handleMobileNo}
                   />
                 </div>
-                {this.state.mobNo.length>0?
-                <span
-                style={{
-                  fontWeight: "bold",
-                  color: "red",
-                }}
-              >
-                {this.state.mobNoError}
-              </span>
-              :null}
+                {this.state.mobNo.length>0?<span style={{fontWeight: "bold",color: "red",}}>{this.state.mobNoError}</span>:null}
              
                 <div className="mb-3">
                   <label htmlFor="body" className="form-labelHome">
@@ -301,16 +292,7 @@ class Home extends Component {
                     onChange={this.handleEmail}
                   />
                 </div>
-                {this.state.emailError.length>0?
-                <span
-                  style={{
-                    fontWeight: "bold",
-                    color: "red",
-                  }}
-                >
-                  {this.state.emailError}
-                </span>
-                :null}
+                {this.state.emailError.length>0?<span style={{fontWeight: "bold",color: "red",}}>{this.state.emailError}</span>:null}
 
                 <div className="mb-3">
                   <label htmlFor="body" className="form-labelHome">

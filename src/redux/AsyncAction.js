@@ -1,7 +1,7 @@
 import axios from "axios";
-import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "../Types";
-import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "../Types";
-import {SET_DATATO_CARDS} from "../Types"
+import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "./Types";
+import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "./Types";
+import {SET_DATATO_CARDS,RESET_CARDS_NOTIFICATION} from "./Types"
 import "bootstrap/dist/css/bootstrap-grid.min.css";
 
 export const fetchUsersFailure = (error) => {
@@ -116,14 +116,15 @@ export const noOfEmp =()=>(dispatch)=>{
   export const dataAddedToContact = (user) =>(dispatch)=>{
     axios.post(`http://localhost:8080/contactpost`,user)
     .then((response) => {
+      // console.log("119",response.data)
       dispatch({
         type:SET_ADDTOCONTACT_NOTIFICATION,
         payload:response.data.message
       }) 
     })
     .catch((error) => {
+      console.log("125!!!", error.message)
       dispatch({
-        // fetchUsersFailure(error.message)
         type:SET_ADDTOCONTACT_NOTIFICATION,
         payload:error.message,
       });
@@ -152,5 +153,11 @@ export const noOfEmp =()=>(dispatch)=>{
 export const resetAddToContactNotification=()=>(dispatch)=>{
     dispatch({
        type:RESET_ADDTOCONTACT_NOTIFICATION
+    })
+  }
+
+export const resetAddToCardsNotification=()=>(dispatch)=>{
+    dispatch({
+       type: RESET_CARDS_NOTIFICATION
     })
   }

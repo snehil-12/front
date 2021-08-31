@@ -87,21 +87,46 @@ span{
 /* card */
 .cardImg{
     /* borderRadius: 50%; */
-    width:60px;
-    height:60px;
+    width:70px;
+    height:70px;
     margin-Top:5%;
     margin-Left:10%
 }
 .card:hover{
-    padding: 2%;
-    margin: 2%;
-    box-Shadow:  0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);   
+    padding: 1%;
+    margin: 1%;
+    box-Shadow:  0 14px 28px rgba(112, 105, 105, 0.25), 0 10px 10px rgba(112, 105, 105, 0.25);   
 }
-.credtextdiv{
-    font-family: 'Anton', sans-serif;
-}
+
 .card{
     margin:3%;
-    font-family: 'Roboto', sans-serif;
+   
+}
+.cardBody{
+    text-align: left;
 }
  
+
+/* loader */
+.loader {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    margin-top: 20%;
+    margin-left: 50%;
+    width: 70px;
+    height: 70px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

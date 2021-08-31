@@ -1,6 +1,6 @@
-import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "../Types";
-import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "../Types";
-import {SET_DATATO_CARDS} from "../Types"
+import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "./Types";
+import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "./Types";
+import {SET_DATATO_CARDS,RESET_CARDS_NOTIFICATION} from "./Types"
 
 const initialState = {
   data: [],
@@ -9,7 +9,8 @@ const initialState = {
   noofemp: "",
   notification:false,
   addToContactNotification:false,
-  cardData:[]
+  cardData:[],
+  dataAddedToCardsNotification:false
 };
 
 const RequestReducer = (state = initialState, action) => {
@@ -77,7 +78,7 @@ const RequestReducer = (state = initialState, action) => {
       return{
         ...state,
         notification:false,
-        alertMessage:""
+        alertMessage:"",
       }
     case SET_ADDTOCONTACT_NOTIFICATION:
       return{
@@ -95,8 +96,13 @@ const RequestReducer = (state = initialState, action) => {
        return{
          ...state,
          cardData:action.payload,
+         dataAddedToCardsNotification:true,
        }
-
+      case RESET_CARDS_NOTIFICATION:
+        return{
+          ...state,
+          dataAddedToCardsNotification:false
+        }
     default:
       return state;
   }
