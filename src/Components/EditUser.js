@@ -138,11 +138,10 @@ class EditUser extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.data,
-  noofemp: state.noofemp,
-  reduxstate: state,
-  alertMessage: state.alertMessage,
-  notification: state.notification,
+  data: state.RequestReducer.data,
+  noofemp: state.RequestReducer.noofemp,
+  alertMessage: state.RequestReducer.alertMessage,
+  notification: state.RequestReducer.notification,
 });
 
 const mapDispatchToProps = {

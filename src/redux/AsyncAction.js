@@ -1,7 +1,7 @@
 import axios from "axios";
 import {FETCH_USERS_DETAILS,FETCH_SINGLE_USER_DETAILS,DATA_DELETED,CHANGE_CONDUCTED_IN_DELETE,EDIT_CONDUCTED,RESET_ADDTOCONTACT_NOTIFICATION} from "./Types";
 import {USER_ADDED,NO_OF_EMP,SET_ALERT_MESSAGE,CHANGE_DATA_CONDUCTED,RESET_ALERT_MESSAGE,RESET_NOTIFICATION,SET_ADDTOCONTACT_NOTIFICATION} from "./Types";
-import {SET_DATATO_CARDS,RESET_CARDS_NOTIFICATION} from "./Types"
+import {SET_DATATO_CARDS,RESET_CARDS_NOTIFICATION,LOGIN_DETAILS} from "./Types"
 import "bootstrap/dist/css/bootstrap-grid.min.css";
 
 export const fetchUsersFailure = (error) => {
@@ -116,7 +116,7 @@ export const noOfEmp =()=>(dispatch)=>{
   export const dataAddedToContact = (user) =>(dispatch)=>{
     axios.post(`http://localhost:8080/contactpost`,user)
     .then((response) => {
-      // console.log("119",response.data)
+      console.log("119",response.data)
       dispatch({
         type:SET_ADDTOCONTACT_NOTIFICATION,
         payload:response.data.message
@@ -161,3 +161,22 @@ export const resetAddToCardsNotification=()=>(dispatch)=>{
        type: RESET_CARDS_NOTIFICATION
     })
   }
+
+
+// loginform
+export const confirmLogin = ()=>(dispatch)=>{
+  axios.get(`http://localhost:8080/loginpost`)
+  .then((response)=>{
+    // console.log("135 ",response.data.results)
+    dispatch({
+      type:LOGIN_DETAILS,
+      payload:response.data.message
+    })
+  })
+  .catch((error)=>{
+    dispatch({
+      type:LOGIN_DETAILS,
+      payload:error.message
+    })
+  })
+}

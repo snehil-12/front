@@ -5,9 +5,10 @@ import NavBar from './Components/NavBar'
 import EditUser from './Components/EditUser';
 import { Redirect } from 'react-router';
 import Cards from './Components/Cards'
-
+import LoginForm from './Components/LoginForm';
 import store from './redux/Store'
 import {Provider} from 'react-redux'
+
 
 
 import {
@@ -20,11 +21,13 @@ import {
 
 function App() {
   return (
+    
     <Router>
-      <div className="App">
+      <div className="App">                           
       <Provider store={store}>
       <NavBar/>
       <Switch>
+         <Route path="/" exact={true} component={LoginForm}/>
          <Route exact path="/home" component={Home}/>
          <Route exact path="/edituser/:id" component={EditUser}/>
          <Route exact path="/addData" component={EditUser}/>

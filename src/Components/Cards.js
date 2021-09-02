@@ -70,8 +70,8 @@ class Cards extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  cardData: state.cardData,
-  dataAddedToCardsNotification:state.dataAddedToCardsNotification
+  cardData: state.RequestReducer.cardData,
+  dataAddedToCardsNotification:state.RequestReducer.dataAddedToCardsNotification
 });
 
 const mapDispatchToProps = {

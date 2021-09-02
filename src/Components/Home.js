@@ -15,6 +15,10 @@ import Toast from 'react-bootstrap/Toast'
 
 import '../CssFile/Color.css'
 import { left } from "@popperjs/core";
+
+
+
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -337,11 +341,12 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.data,
-  dataDeleted: state.dataDeleted,
-  alertMessage:state.alertMessage,
-  notification:state.notification,
-  addToContactNotification:state.addToContactNotification
+  data: state.RequestReducer.data,
+  dataDeleted: state.RequestReducer.dataDeleted,
+  alertMessage:state.RequestReducer.alertMessage,
+  notification:state.RequestReducer.notification,
+  addToContactNotification:state.RequestReducer.addToContactNotification,
+  // reduxstate:state
 });
 
 const mapDispatchToProps = {
