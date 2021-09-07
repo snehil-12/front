@@ -1,37 +1,25 @@
-import React from 'react'
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router } from "react-router-dom";
+import { connect } from "react-redux";
 
-import InsideLoginFor from './Contain.js/InsideLoginFor';
+import RouteS from "./Components/Routes/RouteS";
 
+import { confirmLogin } from "./redux/AsyncAction";
 
-import store from './redux/Store'
-import {Provider} from 'react-redux'
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import InsideHome from './Contain.js/InsideHome';
-import Home from './Components/Home';
-import LoginForm from './Components/LoginForm';
-import { Redirect } from 'react-router';
-
-function App() {
+function App(props) {
   return (
-    
     <Router>
-      <div className="App">
-      <Provider store={store}>
-        <Route exact path="/login" component={LoginForm}/>
-        <Route path="/insideHome" component={InsideHome}/>
-        <Redirect from="*" to={"/login"} />
-      </Provider>
-      </div>
+      <RouteS data={props.loginMessage} />
     </Router>
-    
   );
 }
+const mapStateToProps = (state) => ({
+  loginMessage: state.LRequestReducer.loginMessage,
+});
 
-export default App;
+const mapDispatchToProps = {
+  confirmLogin,
+};
 
+export default connect(mapStateToProps, mapDispatchToProps)(App);

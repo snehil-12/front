@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { confirmLogin } from "../redux/AsyncAction";
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
-import InsideLoginFor from "../Contain.js/InsideLoginFor";
+
 import { resetConfirmLogin } from "../redux/AsyncAction";
 
 function NavBar(props) {
@@ -13,13 +13,14 @@ function NavBar(props) {
   const handleLogOut = (e) => {
     console.log("15 ", e);
     props.resetConfirmLogin();
+    history.push("/");
   };
 
-  useEffect(() => {
-    if (props.loginMessage === "false") {
-      history.push("/login");
-    }
-  }, [props.loginMessage]);
+  // useEffect(() => {
+  //   if (props.loginMessage === "false") {
+  //     history.push("/");
+  //   }
+  // }, [props.loginMessage]);
 
   return (
     <div className="nav-bar">
@@ -57,7 +58,7 @@ function NavBar(props) {
             </li>
             <li className="nav-item">
               <Link
-                className="nav-link btn btn-danger"
+                className="nav-link"
                 style={{ color: "red" }}
                 onClick={handleLogOut}
               >

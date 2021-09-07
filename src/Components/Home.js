@@ -7,17 +7,14 @@ import { fetchUsers } from "../redux/AsyncAction";
 import { removeUsers } from "../redux/AsyncAction";
 import { resetDelete } from "../redux/AsyncAction";
 import { resetNotification } from "../redux/AsyncAction";
-import { dataAddedToContact  } from "../redux/AsyncAction";
-import {resetAddToContactNotification} from "../redux/AsyncAction"
+import { dataAddedToContact } from "../redux/AsyncAction";
+import { resetAddToContactNotification } from "../redux/AsyncAction";
 import validator from "validator";
-import Alert from 'react-bootstrap/Alert';
-import Toast from 'react-bootstrap/Toast'
+import Alert from "react-bootstrap/Alert";
+import Toast from "react-bootstrap/Toast";
 
-import '../CssFile/Color.css'
+import "../CssFile/Color.css";
 import { left } from "@popperjs/core";
-
-
-
 
 class Home extends Component {
   constructor(props) {
@@ -30,25 +27,23 @@ class Home extends Component {
       mobNo: "",
       feedBack: "",
       email: "",
-      emailError:"",
-      mobNoError:"",
+      emailError: "",
+      mobNoError: "",
     };
   }
-  
+
   componentDidMount() {
     this.props.fetchUsers();
   }
 
   deleteUser(id) {
     this.props.removeUsers(id);
-    
   }
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.dataDeleted === true){
+    if (this.props.dataDeleted === true) {
       this.props.fetchUsers();
       this.props.resetDelete();
     }
-    
   }
 
   //starting of modal implementation
@@ -77,23 +72,22 @@ class Home extends Component {
     this.setState({
       mobNo: e.target.value,
     });
-    if(tempMobNo.toString().length===10){
+    if (tempMobNo.toString().length === 10) {
       this.setState({
-      mobNoError:""
-    })
-    }
-    else{
+        mobNoError: "",
+      });
+    } else {
       this.setState({
-        mobNoError:"Pl Enter A Valid No"
-      })
+        mobNoError: "Pl Enter A Valid No",
+      });
     }
   };
 
   handleEmail = (e) => {
     var tempEmail = e.target.value;
     this.setState({
-      email:e.target.value,
-    })
+      email: e.target.value,
+    });
     if (validator.isEmail(tempEmail)) {
       this.setState({
         emailError: "",
@@ -122,14 +116,13 @@ class Home extends Component {
       email: this.state.email,
       feedBack: this.state.feedBack,
     };
-    let temp1=user.mobNo
-    let temp2=user.email
-    if(temp1.toString().length===10&&validator.isEmail(temp2))
-        this.props.dataAddedToContact(user);
-    else
-        alert("pl check phone no and mail id again")
+    let temp1 = user.mobNo;
+    let temp2 = user.email;
+    if (temp1.toString().length === 10 && validator.isEmail(temp2))
+      this.props.dataAddedToContact(user);
+    else alert("pl check phone no and mail id again");
   };
-  
+
   handleReset = () => {
     this.setState({
       firstName: "",
@@ -138,43 +131,48 @@ class Home extends Component {
       email: "",
       feedBack: "",
       emailError: "",
-      mobNoError:""
+      mobNoError: "",
     });
   };
 
-  
-  alertclose =()=>{
-   this.props.resetNotification()
-  }
-  toastClose =()=>{
-    this.props.resetAddToContactNotification()
-  }
-  
+  alertclose = () => {
+    this.props.resetNotification();
+  };
+  toastClose = () => {
+    this.props.resetAddToContactNotification();
+  };
+
   render() {
-     
     // console.log("143",this.props.addToContactNotification)
     return (
       <div>
-        {
-          this.props.notification===true?
+        {this.props.notification === true ? (
           <Alert variant="danger" className="Alerttt">
-            <Alert.Heading className="AlertttMessage">{this.props.alertMessage}
-            <button type="button" onClick={()=>this.alertclose()} className="btn-close" style={{float: 'right'}}></button>
+            <Alert.Heading className="AlertttMessage">
+              {this.props.alertMessage}
+              <button
+                type="button"
+                onClick={() => this.alertclose()}
+                className="btn-close"
+                style={{ float: "right" }}
+              ></button>
             </Alert.Heading>
           </Alert>
-          :null
-        }
+        ) : null}
 
-        {
-        this.props.addToContactNotification===true?
-        <div className="HomeToast " variant="primary">
-          <Toast style={{color:'black'},{backgroundColor:'skyblue'}}>
-          <button type="button" onClick={()=>this.toastClose()} className="btn-close me-2 " style={{float: 'right'}}></button>
-          <Toast.Body>{this.props.alertMessage}</Toast.Body>
-          </Toast>
-        </div>
-        :null
-       }
+        {this.props.addToContactNotification === true ? (
+          <div className="HomeToast " variant="primary">
+            <Toast style={({ color: "black" }, { backgroundColor: "skyblue" })}>
+              <button
+                type="button"
+                onClick={() => this.toastClose()}
+                className="btn-close me-2 "
+                style={{ float: "right" }}
+              ></button>
+              <Toast.Body>{this.props.alertMessage}</Toast.Body>
+            </Toast>
+          </div>
+        ) : null}
 
         <table className="table border shadow">
           <thead>
@@ -215,8 +213,10 @@ class Home extends Component {
                     </Link>
                     <button
                       className="btn btn-danger me-2"
-                      onClick={() => {this.deleteUser(user.id)}}
-                    >                                                  
+                      onClick={() => {
+                        this.deleteUser(user.id);
+                      }}
+                    >
                       Delete
                     </button>
                   </td>
@@ -227,113 +227,129 @@ class Home extends Component {
         </table>
 
         {/* modal box */}
-       <div >
-        <button className="btn btn-primary me-5" onClick={() => {this.showModal()}} style={{float: 'right'}}> CLICK HERE</button>
-        { (this.props.addToContactNotification===false&&this.state.show===true)?
-        <Modal show={this.state.show} onHide={this.hideModal} >
-        
-        <Modal.Dialog className="modalHomeDialog"   >
-            <Modal.Header className="modalHomeHeader">
-              <Modal.Title>Fill Up The Form</Modal.Title>
-              <button type="button" onClick={this.hideModal} className="btn-close" ></button>
-            </Modal.Header>
+        <div>
+          <button
+            className="btn btn-primary me-5"
+            onClick={() => {
+              this.showModal();
+            }}
+            style={{ float: "right" }}
+          >
+            {" "}
+            CLICK HERE
+          </button>
+          {this.props.addToContactNotification === false &&
+          this.state.show === true ? (
+            <Modal show={this.state.show} onHide={this.hideModal}>
+              <Modal.Dialog className="modalHomeDialog">
+                <Modal.Header className="modalHomeHeader">
+                  <Modal.Title>Fill Up The Form</Modal.Title>
+                  <button
+                    type="button"
+                    onClick={this.hideModal}
+                    className="btn-close"
+                  ></button>
+                </Modal.Header>
 
-            <Modal.Body className="modalHomeBody">
-            
-              <form onSubmit={this.handleSubmitModal}>
-              {/* <div className="homeDiv"> */}
-                <div className="mb-3">
-                  <label htmlFor="id" className="form-labelHome" >
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-controlHome"
-                    name="firstName"
-                    value={this.state.firstName}
-                    onChange={this.handleFirstName}
-                  />
-                </div>
+                <Modal.Body className="modalHomeBody">
+                  <form onSubmit={this.handleSubmitModal}>
+                    {/* <div className="homeDiv"> */}
+                    <div className="mb-3">
+                      <label htmlFor="id" className="form-labelHome">
+                        First Name
+                      </label>
+                      <input
+                        type="text"
+                        className="form-controlHome"
+                        name="firstName"
+                        value={this.state.firstName}
+                        onChange={this.handleFirstName}
+                      />
+                    </div>
 
+                    <div className="mb-3">
+                      <label htmlFor="title" className="form-labelHome">
+                        Last Name
+                      </label>
+                      <input
+                        type="text"
+                        className="form-controlHome"
+                        name="lastName"
+                        value={this.state.lastName}
+                        onChange={this.handleLastName}
+                      />
+                    </div>
 
-                <div className="mb-3">
-                  <label htmlFor="title" className="form-labelHome">
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-controlHome"
-                    name="lastName"
-                    value={this.state.lastName}
-                    onChange={this.handleLastName}
-                  />
-                </div>
+                    <div className="mb-3">
+                      <label htmlFor="body" className="form-labelHome">
+                        Mobile No
+                      </label>
+                      <input
+                        type="number"
+                        className="form-controlHome"
+                        name="mobNo"
+                        value={this.state.mobNo}
+                        onChange={this.handleMobileNo}
+                      />
+                    </div>
+                    {this.state.mobNo.length > 0 ? (
+                      <span style={{ fontWeight: "bold", color: "red" }}>
+                        {this.state.mobNoError}
+                      </span>
+                    ) : null}
 
-                 
-                  <div className="mb-3">
-                  <label htmlFor="body" className="form-labelHome">
-                    Mobile No
-                  </label>
-                  <input
-                    type="number"
-                    className="form-controlHome"
-                    name="mobNo"
-                    value={this.state.mobNo}
-                    onChange={this.handleMobileNo}
-                  />
-                </div>
-                {this.state.mobNo.length>0?<span style={{fontWeight: "bold",color: "red",}}>{this.state.mobNoError}</span>:null}
-             
-                <div className="mb-3">
-                  <label htmlFor="body" className="form-labelHome">
-                    Email Id 
-                  </label>
-                  <input
-                    type="email"
-                    className="form-controlHomeE"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleEmail}
-                  />
-                </div>
-                {this.state.emailError.length>0?<span style={{fontWeight: "bold",color: "red",}}>{this.state.emailError}</span>:null}
+                    <div className="mb-3">
+                      <label htmlFor="body" className="form-labelHome">
+                        Email Id
+                      </label>
+                      <input
+                        type="email"
+                        className="form-controlHomeE"
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.handleEmail}
+                      />
+                    </div>
+                    {this.state.emailError.length > 0 ? (
+                      <span style={{ fontWeight: "bold", color: "red" }}>
+                        {this.state.emailError}
+                      </span>
+                    ) : null}
 
-                <div className="mb-3">
-                  <label htmlFor="body" className="form-labelHome">
-                    feedBack
-                  </label>
-                  <input
-                    type="textarea"
-                    className="form-controlHomeF"
-                    name="feedBack"
-                    value={this.state.feedBack}
-                    onChange={this.handleFeedback}
-                  />
-                </div>
-                {/* </div> */}
-              </form>
-             
-            </Modal.Body>
+                    <div className="mb-3">
+                      <label htmlFor="body" className="form-labelHome">
+                        feedBack
+                      </label>
+                      <input
+                        type="textarea"
+                        className="form-controlHomeF"
+                        name="feedBack"
+                        value={this.state.feedBack}
+                        onChange={this.handleFeedback}
+                      />
+                    </div>
+                    {/* </div> */}
+                  </form>
+                </Modal.Body>
 
-            <Modal.Footer className="modalHomeFooter">
-              <button
-                className="btn btn-primary em-2 "
-                onClick={this.handleReset}
-              >
-                Clear
-              </button>
-              <button
-                className="btn btn-primary em-2 "
-                type="submit"
-                onClick={this.handleSubmitModal}
-              >
-                Save It
-              </button>
-            </Modal.Footer>
-          </Modal.Dialog>
-          
-        </Modal>
-          :null      }
+                <Modal.Footer className="modalHomeFooter">
+                  <button
+                    className="btn btn-primary em-2 "
+                    onClick={this.handleReset}
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="btn btn-primary em-2 "
+                    type="submit"
+                    onClick={this.handleSubmitModal}
+                  >
+                    Save It
+                  </button>
+                </Modal.Footer>
+              </Modal.Dialog>
+            </Modal>
+          ) : null}
         </div>
       </div>
     );
@@ -343,9 +359,9 @@ class Home extends Component {
 const mapStateToProps = (state) => ({
   data: state.RequestReducer.data,
   dataDeleted: state.RequestReducer.dataDeleted,
-  alertMessage:state.RequestReducer.alertMessage,
-  notification:state.RequestReducer.notification,
-  addToContactNotification:state.RequestReducer.addToContactNotification,
+  alertMessage: state.RequestReducer.alertMessage,
+  notification: state.RequestReducer.notification,
+  addToContactNotification: state.RequestReducer.addToContactNotification,
   // reduxstate:state
 });
 
@@ -353,7 +369,7 @@ const mapDispatchToProps = {
   fetchUsers,
   removeUsers,
   resetDelete,
-  dataAddedToContact ,
+  dataAddedToContact,
   resetNotification,
   resetAddToContactNotification,
 };
