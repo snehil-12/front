@@ -130,3 +130,40 @@ span{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+
+
+/* loginform */
+.form{
+    background-color: blueviolet;
+}
+
+.loginform{
+    width: 30%;
+    height: 70%;
+    margin: auto;
+    margin-top: 15rem;
+    background: linear-gradient(#52cfeb, #42A2BC);
+    border-radius: 10px;  
+}
+.remember{
+  size: 1px;
+}
+.LoginControl1{
+    width: 60%;
+    text-align: center;
+}
+.LoginControl2{
+    width: 60%;
+    text-align: center;
+}
+.LoginControl3{
+    width: 60%;
+    text-align: center;
+}
+.loginbtn{
+    margin-bottom: 2px;
+}
+.remember{
+    zoom: 1.2;
+}

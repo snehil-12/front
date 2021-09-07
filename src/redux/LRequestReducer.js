@@ -1,7 +1,7 @@
-import {LOGIN_DETAILS} from "./Types"
+import {LOGIN_DETAILS,RESET_CONFIRM_LOGIN} from "./Types"
 
 const initialState = {
-    loginMessage:'',
+    loginMessage:"false",
   };
   
   const LRequestReducer = (state = initialState, action) => {
@@ -10,8 +10,14 @@ const initialState = {
       case LOGIN_DETAILS:
         return {
           ...state,
-          loginMessage: action.payload, 
+          loginMessage:action.payload,   
         };
+      case RESET_CONFIRM_LOGIN:{
+        return{
+        ...state,
+        loginMessage:"false"
+        }
+      }
      
       default:
         return state;

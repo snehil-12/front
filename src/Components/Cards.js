@@ -6,6 +6,7 @@ import { resetAddToCardsNotification} from "../redux/AsyncAction";
 import { connect } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
 import '../CssFile/Color.css';
 
 
