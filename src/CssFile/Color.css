@@ -51,7 +51,7 @@
 }
 .React {
   color: white;
-  font-weight: 700;
+  font-weight: 800;
   font-style: normal;
 }
 .HomeToast {
@@ -173,9 +173,18 @@ span {
   width: 60%;
   text-align: center;
 }
-.loginbtn {
+.loginbtn1 {
   margin-bottom: 7px;
+  margin-left: 8rem;
+}
+.loginbtn2 {
+  margin-bottom: 7px;
+  margin-left: 1rem;
 }
 .remember {
-  zoom: 1.2;
+  margin-left: 10rem;
+}
+
+.image {
+  height: 30px;
 }

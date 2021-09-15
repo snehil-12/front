@@ -1,12 +1,12 @@
-import { left } from "@popperjs/core";
-import { Link } from "react-router-dom";
 import { confirmLogin } from "../redux/AsyncAction";
+import { setToken } from "../redux/AsyncAction";
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
+import NavBar from "./NavBar";
 
 // import { useDispatch, useSelector } from 'react-redux';
 function LoginForm(props) {
@@ -42,17 +42,28 @@ function LoginForm(props) {
   };
   useEffect(() => {
     if (props.loginMessage === "true") {
-      history.push("/home");
+      const obj = {
+        isloginin: "true",
+      };
+      localStorage.setItem("login", JSON.stringify(obj));
+      props.setToken();
+      setTimeout(() => {
+        history.push("/home");
+      }, 0);
     }
   }, [props.loginMessage]);
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
   return (
     <div className="loginform" style={{ border: "1px solid" }}>
       <Form>
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <div style={{ textAlign: "center", fontSize: "larger" }}>
+          <label>LOGIN</label>
+        </div>
+        <Form.Group as={Row} className="mb-3">
           <Col>
             <Form.Control
               type="email"
@@ -66,7 +77,7 @@ function LoginForm(props) {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+        <Form.Group as={Row} className="mb-3">
           <Col>
             <Form.Control
               type="password"
@@ -79,25 +90,24 @@ function LoginForm(props) {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+        <Form.Group as={Row} className="mb-3">
           <Col>
             <input type="checkbox" className="remember" id="remember" />
-            <label for="remember">Remember me</label>
+            <label htmlFor="remember">Remember me</label>
           </Col>
         </Form.Group>
-        {/* <button className="btn btn-primary me-3 loginbtn" >SignUp</button> */}
-        <Link to="/signup">
-          <button
-            className="btn btn-primary me-3 loginbtn"
-            onClick={() => {
-              history.push("/signup");
-            }}
-          >
-            SignUp
-          </button>
-        </Link>
+
         <button
-          className="btn btn-primary me-3 loginbtn"
+          className="btn btn-primary me-3 loginbtn1"
+          onClick={() => {
+            history.push("/signup");
+          }}
+        >
+          SignUp
+        </button>
+
+        <button
+          className="btn btn-primary me-3 loginbtn2"
           type="submit"
           onClick={handleSubmitClick}
         >
@@ -110,10 +120,12 @@ function LoginForm(props) {
 
 const mapStateToProps = (state) => ({
   loginMessage: state.LRequestReducer.loginMessage,
+  token: state.LRequestReducer.token,
 });
 
 const mapDispatchToProps = {
   confirmLogin,
+  setToken,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

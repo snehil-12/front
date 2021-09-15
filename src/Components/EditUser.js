@@ -8,7 +8,7 @@ import { resetNotification } from "../redux/AsyncAction";
 import { connect } from "react-redux";
 import Alert from "react-bootstrap/Alert";
 import "../CssFile/Color.css";
-import { Col, Row, Form } from "react-bootstrap";
+
 class EditUser extends Component {
   constructor(props) {
     super(props);
@@ -60,6 +60,7 @@ class EditUser extends Component {
         body: "",
       });
     }
+    // if (this.props.loginMessage === "false") this.props.history.push("/home");
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -202,6 +203,7 @@ const mapStateToProps = (state) => ({
   noofemp: state.RequestReducer.noofemp,
   alertMessage: state.RequestReducer.alertMessage,
   notification: state.RequestReducer.notification,
+  loginMessage: state.LRequestReducer.loginMessage,
 });
 
 const mapDispatchToProps = {

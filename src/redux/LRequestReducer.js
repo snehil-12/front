@@ -1,8 +1,16 @@
-import { LOGIN_DETAILS, RESET_CONFIRM_LOGIN, SIGNUP_DETAILS } from "./Types";
+import {
+  LOGIN_DETAILS,
+  RESET_CONFIRM_LOGIN,
+  SIGNUP_DETAILS,
+  RESET_SIGNUP,
+  SET_TOKEN,
+  RESET_TOKEN,
+} from "./Types";
 
 const initialState = {
   loginMessage: "false",
   SMessage: "",
+  token: false,
 };
 
 const LRequestReducer = (state = initialState, action) => {
@@ -23,6 +31,24 @@ const LRequestReducer = (state = initialState, action) => {
       return {
         ...state,
         SMessage: action.payload,
+      };
+    }
+    case RESET_SIGNUP: {
+      return {
+        ...state,
+        SMessage: "",
+      };
+    }
+    case SET_TOKEN: {
+      return {
+        ...state,
+        token: true,
+      };
+    }
+    case RESET_TOKEN: {
+      return {
+        ...state,
+        token: false,
       };
     }
 

@@ -1,25 +1,35 @@
 import React from "react";
 import "./App.css";
+import { useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
-
 import RouteS from "./Components/Routes/RouteS";
-
 import { confirmLogin } from "./redux/AsyncAction";
+import { setToken } from "./redux/AsyncAction";
+import NavBar from "./Components/NavBar";
 
 function App(props) {
+  useEffect(() => {
+    let temp = JSON.parse(localStorage.getItem("login"));
+    if (temp.isloginin == "true") props.setToken();
+  }, [props.token]);
   return (
-    <Router>
-      <RouteS data={props.loginMessage} />
-    </Router>
+    <>
+      <Router>
+        {props.token === true ? <NavBar /> : null}
+        <RouteS />
+      </Router>
+    </>
   );
 }
 const mapStateToProps = (state) => ({
   loginMessage: state.LRequestReducer.loginMessage,
+  token: state.LRequestReducer.token,
 });
 
 const mapDispatchToProps = {
   confirmLogin,
+  setToken,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

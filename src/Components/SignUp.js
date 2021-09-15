@@ -1,5 +1,5 @@
-import { left } from "@popperjs/core";
 import { ConfirmSignUp } from "../redux/AsyncAction";
+import { resetSignUp } from "../redux/AsyncAction";
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import Row from "react-bootstrap/Row";
@@ -27,7 +27,7 @@ function SignUp(props) {
 
   function ValidateEmail(inputText) {
     var mailformat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    if (mailformat.test(state.email)) {
+    if (mailformat.test(inputText)) {
       return true;
     } else {
       return false;
@@ -40,19 +40,25 @@ function SignUp(props) {
   }
 
   const handleSubmitClick = (e) => {
+    e.preventDefault();
     if (ValidateEmail(state.email)) {
-      if (ValidatePassword()) props.ConfirmSignUp();
+      if (ValidatePassword()) props.ConfirmSignUp(state);
       else alert("Password Not Match");
     } else {
       alert("You have entered an invalid email address!");
     }
   };
 
-  //   useEffect(() => {
-  //     if (props.loginMessage === "true") {
-  //       history.push("/insideHome");
-  //     }
-  //   }, [props.loginMessage]);
+  useEffect(() => {
+    if (props.SMessage === "DATA INSERTED ") {
+      alert(props.SMessage);
+      props.resetSignUp();
+      history.push("/");
+    } else if (props.SMessage === "Duplicate Entry") {
+      alert(props.SMessage);
+      props.resetSignUp();
+    }
+  }, [props.SMessage]);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -61,7 +67,10 @@ function SignUp(props) {
   return (
     <div className="loginform" style={{ border: "1px solid" }}>
       <Form>
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <div style={{ textAlign: "center", fontSize: "larger" }}>
+          <label>SIGN UP</label>
+        </div>
+        <Form.Group as={Row} className="mb-3">
           <Col>
             <Form.Control
               type="email"
@@ -75,7 +84,7 @@ function SignUp(props) {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+        <Form.Group as={Row} className="mb-3">
           <Col>
             <Form.Control
               type="password"
@@ -88,7 +97,7 @@ function SignUp(props) {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+        <Form.Group as={Row} className="mb-3">
           <Col>
             <Form.Control
               type="password"
@@ -100,8 +109,20 @@ function SignUp(props) {
             />
           </Col>
         </Form.Group>
+
         <button
-          className="btn btn-primary me-3 loginbtn"
+          className="btn btn-primary me-3 loginbtn1"
+          type="submit"
+          onClick={() => {
+            history.push("/");
+            props.resetSignUp();
+          }}
+        >
+          Back
+        </button>
+
+        <button
+          className="btn btn-primary me-3 loginbtn2"
           type="submit"
           onClick={handleSubmitClick}
         >
@@ -118,6 +139,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   ConfirmSignUp,
+  resetSignUp,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -10,19 +10,20 @@ import { Redirect } from "react-router";
 
 import NavBar from "../NavBar";
 
-function RouteS(props) {
+function RouteS() {
+  // let check = JSON.parse(localStorage.getItem("login")).isloginin;
   return (
     <div>
-      {props.data === "true" ? <NavBar /> : null}
       <Switch>
         <Route exact path="/" component={LoginForm} />
-        <Route exact path="/login" components={LoginForm} />
+        <Route exact path="/login" component={LoginForm} />
+        <Route exact path="/navbar" component={NavBar} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/edituser/:id" component={EditUser} />
         <Route exact path="/addData" component={EditUser} />
         <Route exact path="/cards" component={Cards} />
-        <Route exact path="/signup" components={SignUp} />
-        <Redirect from="*" to={"/login"} />
+        <Route exact path="/signup" component={SignUp} />
+        <Redirect from="*" to={"/home"} />
       </Switch>
     </div>
   );

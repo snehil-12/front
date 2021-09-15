@@ -14,7 +14,6 @@ import Alert from "react-bootstrap/Alert";
 import Toast from "react-bootstrap/Toast";
 
 import "../CssFile/Color.css";
-import { left } from "@popperjs/core";
 
 class Home extends Component {
   constructor(props) {
@@ -44,6 +43,7 @@ class Home extends Component {
       this.props.fetchUsers();
       this.props.resetDelete();
     }
+    // if (this.props.loginMessage === "false") this.props.history.push("/");
   }
 
   //starting of modal implementation
@@ -362,7 +362,7 @@ const mapStateToProps = (state) => ({
   alertMessage: state.RequestReducer.alertMessage,
   notification: state.RequestReducer.notification,
   addToContactNotification: state.RequestReducer.addToContactNotification,
-  // reduxstate:state
+  loginMessage: state.LRequestReducer.loginMessage,
 });
 
 const mapDispatchToProps = {

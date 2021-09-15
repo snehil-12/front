@@ -22,6 +22,9 @@ import {
   LOGIN_DETAILS,
   RESET_CONFIRM_LOGIN,
   SIGNUP_DETAILS,
+  RESET_SIGNUP,
+  SET_TOKEN,
+  RESET_TOKEN,
 } from "./Types";
 import "bootstrap/dist/css/bootstrap-grid.min.css";
 
@@ -216,18 +219,37 @@ export const resetConfirmLogin = () => (dispatch) => {
 
 export const ConfirmSignUp = (data) => (dispatch) => {
   axios
-    .post(`http://localhost:8080/loginsignup`, data)
+    .post(`http://localhost:8080/signup`, data)
     .then((response) => {
+      console.log("confirm user re", response.data.message);
       dispatch({
         type: SIGNUP_DETAILS,
         payload: response.data.message,
       });
     })
     .catch((error) => {
-      console.log("177 ", error.message);
+      console.log("confirm user err ", error.message);
       dispatch({
         type: SIGNUP_DETAILS,
-        payload: error.message,
+        payload: "Duplicate Entry",
       });
     });
+};
+
+export const resetSignUp = () => (dispatch) => {
+  dispatch({
+    type: RESET_SIGNUP,
+  });
+};
+
+export const setToken = () => (dispatch) => {
+  dispatch({
+    type: SET_TOKEN,
+  });
+};
+
+export const resetToken = () => (dispatch) => {
+  dispatch({
+    type: RESET_TOKEN,
+  });
 };
