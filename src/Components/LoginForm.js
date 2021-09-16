@@ -1,5 +1,6 @@
 import { confirmLogin } from "../redux/AsyncAction";
 import { setToken } from "../redux/AsyncAction";
+import { Redirect } from "react-router";
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import Row from "react-bootstrap/Row";
@@ -42,14 +43,13 @@ function LoginForm(props) {
   };
   useEffect(() => {
     if (props.loginMessage === "true") {
+      console.log("login useeffect");
       const obj = {
         isloginin: "true",
       };
       localStorage.setItem("login", JSON.stringify(obj));
       props.setToken();
-      setTimeout(() => {
-        history.push("/home");
-      }, 0);
+      props.history.push("/home");
     }
   }, [props.loginMessage]);
 

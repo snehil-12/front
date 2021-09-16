@@ -21,6 +21,7 @@ function NavBar(props) {
     };
     localStorage.setItem("login", JSON.stringify(obj));
     props.resetToken();
+    history.push("/");
   };
 
   return (

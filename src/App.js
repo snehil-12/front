@@ -7,17 +7,24 @@ import RouteS from "./Components/Routes/RouteS";
 import { confirmLogin } from "./redux/AsyncAction";
 import { setToken } from "./redux/AsyncAction";
 import NavBar from "./Components/NavBar";
+import LoginForm from "./Components/LoginForm";
+import Home from "./Components/Home";
 
 function App(props) {
   useEffect(() => {
     let temp = JSON.parse(localStorage.getItem("login"));
     if (temp.isloginin == "true") props.setToken();
   }, [props.token]);
+
   return (
     <>
       <Router>
-        {props.token === true ? <NavBar /> : null}
-        <RouteS />
+        {props.token === true ? (
+          <>
+            <NavBar />
+          </>
+        ) : null}
+        <RouteS token={props.token} />
       </Router>
     </>
   );
