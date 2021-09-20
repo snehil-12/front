@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import img1 from "../photos/p1.png";
 
 import { resetConfirmLogin } from "../redux/AsyncAction";
-
+import RouteS from "./Routes/RouteS";
 function NavBar(props) {
   let history = useHistory();
 
@@ -73,6 +73,7 @@ function NavBar(props) {
           </div>
         </nav>
       </div>
+      {/* <RouteS token={props.token} /> */}
     </>
   );
 }

@@ -41,6 +41,7 @@ function LoginForm(props) {
     if (ValidateEmail(state.email)) props.confirmLogin(state);
     else alert("You have entered an invalid email address!");
   };
+
   useEffect(() => {
     if (props.loginMessage === "true") {
       console.log("login useeffect");
@@ -121,6 +122,7 @@ function LoginForm(props) {
 const mapStateToProps = (state) => ({
   loginMessage: state.LRequestReducer.loginMessage,
   token: state.LRequestReducer.token,
+  SMessage: state.LRequestReducer.SMessage,
 });
 
 const mapDispatchToProps = {

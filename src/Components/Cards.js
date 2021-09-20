@@ -80,7 +80,9 @@ class Cards extends Component {
             ))}
           </Row>
         ) : (
-          <div class="loader"></div>
+          
+            <div className="loader" />
+          
         )}
       </div>
     );

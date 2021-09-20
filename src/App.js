@@ -9,6 +9,9 @@ import { setToken } from "./redux/AsyncAction";
 import NavBar from "./Components/NavBar";
 import LoginForm from "./Components/LoginForm";
 import Home from "./Components/Home";
+import SignUp from "./Components/SignUp";
+import { Switch, Route } from "react-router-dom";
+import { Redirect } from "react-router";
 
 function App(props) {
   useEffect(() => {
@@ -22,9 +25,15 @@ function App(props) {
         {props.token === true ? (
           <>
             <NavBar />
+            <RouteS token={props.token} />
           </>
-        ) : null}
-        <RouteS token={props.token} />
+        ) : (
+          <>
+            <Redirect from="*" to={"/"} />
+            <Route component={LoginForm} path="/" exact />
+            <Route exact path="/signup" component={SignUp} />
+          </>
+        )}
       </Router>
     </>
   );

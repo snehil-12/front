@@ -11,24 +11,21 @@ import { Redirect } from "react-router";
 import NavBar from "../NavBar";
 
 function RouteS(props) {
-  // let check = JSON.parse(localStorage.getItem("login")).isloginin;
+  console.log("14dfnds", props.token);
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={LoginForm} />
-
-        {/* <Route exact path="/home" component={Home} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/edituser/:id" component={EditUser} />
         <Route exact path="/addData" component={EditUser} />
         <Route exact path="/cards" component={Cards} />
-        <Route exact path="/signup" component={SignUp} /> */}
-
-        <PrivateRoute path="/home" component={Home} token={props.token} exact />
+       
+        {/* <PrivateRoute component={Home} path="/home" exact token={props.token} />
         <PrivateRoute
-          exact
           component={EditUser}
           path="/edituser/:id"
           token={props.token}
+          exact
         />
         <PrivateRoute
           exact
@@ -47,7 +44,7 @@ function RouteS(props) {
           component={SignUp}
           path="/signup"
           token={props.token}
-        />
+        /> */}
 
         <Redirect from="*" to={"/home"} />
       </Switch>
